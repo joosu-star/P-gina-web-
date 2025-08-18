@@ -21,6 +21,74 @@
       letter-spacing: 0.01em;
       background: #000 url('https://www.transparenttextures.com/patterns/noise.png') repeat;
     }
+    #scanlines {
+      pointer-events: none;
+      z-index: 99999;
+      position: fixed;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      opacity: 0.13;
+      background: repeating-linear-gradient(
+        to bottom,
+        #0f0 0px, #0f0 1.2px,
+        transparent 1.2px, transparent 4px
+      );
+      mix-blend-mode: lighten;
+      animation: scan-move 2.8s linear infinite;
+    }
+    @keyframes scan-move {
+      0% { background-position-y: 0; }
+      100% { background-position-y: 4px; }
+    }
+    #retro-login {
+      position: fixed; z-index: 10000;
+      top:0; left:0; width:100vw; height:100vh;
+      background: #000 url('https://www.transparenttextures.com/patterns/noise.png') repeat;
+      display: flex; align-items: center; justify-content: center;
+      flex-direction: column;
+      transition: opacity 0.6s;
+    }
+    .login-title {
+      font-size: 5vw;
+      text-align: center;
+      color: #00ff00;
+      text-shadow: 0 0 40px #00ff00,0 0 10px #0f0;
+      letter-spacing: 0.18em;
+      font-weight: bold;
+      user-select:none;
+    }
+    .login-form {
+      margin-top: 2vw;
+      background: rgba(0,32,0,0.17);
+      border: 2px solid #0f0;
+      border-radius: 12px;
+      padding: 2.2em 2.5em;
+      box-shadow: 0 0 22px #0f0a;
+      display: flex; flex-direction: column; align-items: center;
+    }
+    .login-label {
+      color:#0f0;font-size:1.1em;margin-bottom:0.7em; letter-spacing: 0.04em;
+    }
+    .login-input {
+      background: #010; border: 1.5px solid #0f0; color: #0f0; font-size: 1.15em;
+      border-radius: 4px;
+      padding: 0.3em 0.8em; margin-bottom: 1.1em;
+      outline: none;
+      font-family: inherit;
+      transition: border-color 0.2s;
+    }
+    .login-input:focus {
+      border-color: #00ff00;
+    }
+    .login-btn {
+      background: none; color: #0f0; border: 1.5px solid #0f0;
+      padding: 0.4em 2em; border-radius: 5px; font-size: 1.06em;
+      cursor: pointer; transition: background 0.22s, color 0.22s;
+    }
+    .login-btn:hover { background: #0f0; color: #000;}
+    .login-tip {
+      color: #0f0; opacity: .65; font-size: 0.95em; margin-top: 1em;
+      text-align: center;
+    }
     #retro-splash {
       position: fixed; z-index: 9999;
       top:0; left:0; width:100vw; height:100vh;
@@ -70,6 +138,22 @@
       user-select: none;
       display: flex; align-items: center;
       transition: background 0.35s, border-color 0.25s, box-shadow 0.25s;
+      position: relative;
+      gap: 1.2em;
+    }
+    .bar-avatar {
+      width: 36px; height: 36px; border-radius: 50%; background: #0f0a;
+      border: 2px solid #0f0; margin-right: 0.9em; object-fit: cover;
+      box-shadow: 0 0 13px #0f0d;
+    }
+    .bar-clock {
+      margin-left: auto; color: #0f0; font-size: 1em;
+      letter-spacing: 0.03em; font-weight: normal;
+      text-shadow: 0 0 6px #0f0, 0 0 3px #007700;
+      font-family: monospace;
+      opacity: 0.8;
+      padding: 0 0.5em;
+      user-select: none;
     }
     .dot { width: 13px; height: 13px; border-radius: 50%; margin-right: 7px; display: inline-block; box-shadow: 0 0 7px #333;}
     .dot.red { background: #f55;}
@@ -100,6 +184,24 @@
     .blink { animation: blink 1s infinite; }
     @keyframes blink { 0%,100%{opacity:1;} 50%{opacity:0;} }
     .highlight {color: #fff; background: #090; padding: 2px 6px; border-radius: 4px;}
+    .progress-bar-wrap {
+      width: 100%; margin: 1.7em 0 2.2em 0; display: flex; align-items: center; justify-content: center;
+    }
+    .progress-bar {
+      width: 60%; max-width: 340px; height: 18px; background: #020; border-radius: 7px;
+      border: 1.5px solid #0f0; overflow: hidden; box-shadow: 0 0 9px #0f0a;
+      position: relative;
+    }
+    .progress-fill {
+      background: linear-gradient(90deg, #00ff00 20%, #0c0 100%);
+      height: 100%; width: 0%;
+      transition: width 0.18s;
+    }
+    .progress-label {
+      position: absolute; left: 50%; top: 50%; transform: translate(-50%,-50%);
+      font-size: 0.95em; color: #010; font-weight: bold; letter-spacing: 0.08em;
+      text-shadow: 0 0 6px #0f0;
+    }
     iframe {
       width: 100%; height: 60vh; border: 1px solid #00ff00; margin-top: 20px;
       background: #111;
@@ -159,19 +261,47 @@
     ::-webkit-scrollbar {width:9px; background:#050;}
     ::-webkit-scrollbar-thumb {background:#194; border-radius:8px;}
     ::selection {background: #00ff00; color:#000;}
+    /* Easter egg pop-up */
+    #easter-egg-popup {
+      position: fixed;
+      left: 50%; top: 17vh; transform: translate(-50%,0);
+      background: #010; color: #0f0;
+      border: 2px solid #0f0;
+      border-radius: 9px; padding: 2.1em 3em;
+      font-size: 1.5em; z-index: 20000;
+      box-shadow: 0 0 26px #0f0c, 0 0 9px #0f0a;
+      text-align: center;
+      text-shadow: 0 0 6px #0f0, 0 0 3px #007700;
+      display: none;
+    }
   </style>
 </head>
 <body>
-<div id="retro-splash">
+<div id="scanlines"></div>
+<div id="easter-egg-popup">🦾 Acceso Ultrasecreto habilitado<br><span style="font-size:0.7em;">(¡Has descubierto un easter egg!)</span></div>
+<div id="retro-login">
+  <div class="login-title">JAKE.CORPS</div>
+  <form class="login-form" id="loginForm" autocomplete="off">
+    <div class="login-label">Ingrese sus credenciales para continuar</div>
+    <input class="login-input" id="loginUser" type="text" placeholder="Usuario" required autofocus>
+    <input class="login-input" id="loginPass" type="password" placeholder="Contraseña" required>
+    <button class="login-btn" type="submit">Acceder</button>
+    <div class="login-tip">(Presione ENTER o clickear para acceder)</div>
+    <div class="login-tip" style="opacity:.4;margin-top:0.5em;">No se requiere autenticación real</div>
+  </form>
+</div>
+<div id="retro-splash" style="display:none;">
   <div class="splash-title">JAKE.CORPS</div>
   <div class="splash-sub">SISTEMA MILITAR DE CONFIABILIDAD MÁXIMA</div>
 </div>
 <div id="terminal-outer" style="display:none;">
   <div class="terminal-bar" id="terminal-bar">
+    <img class="bar-avatar" src="https://randomuser.me/api/portraits/men/11.jpg" alt="avatar militar">
     <span class="dot red"></span>
     <span class="dot yellow"></span>
     <span class="dot green"></span>
     <span class="title" id="terminal-title">root@jake-corps:~$</span>
+    <span class="bar-clock" id="bar-clock"></span>
   </div>
   <div class="terminal" id="terminal">
     <div id="output"></div>
@@ -180,11 +310,33 @@
   </div>
 </div>
 <script>
+  // --------- SCANLINES ----------
+  document.getElementById('scanlines').style.display = 'block';
+  // --------- LOGIN RETRO -------------
+  let fakeUser = "";
+  document.getElementById('loginForm').onsubmit = function(ev) {
+    ev.preventDefault();
+    fakeUser = document.getElementById('loginUser').value.trim() || "root";
+    finishLogin();
+    return false;
+  };
+  document.getElementById('loginUser').addEventListener('keydown', e=>{if(e.key==='Enter') document.getElementById('loginPass').focus();});
+  function finishLogin() {
+    document.getElementById('retro-login').style.opacity = '0';
+    setTimeout(()=>{
+      document.getElementById('retro-login').style.display = 'none';
+      document.getElementById('retro-splash').style.display = 'flex';
+      startSplash();
+    }, 600);
+  }
+
   // --------- SPLASH RETRO --------------
   let splashFinished = false;
-  setTimeout(()=>{finishSplash()},2300);
-  document.addEventListener("keydown",()=>{if(!splashFinished) finishSplash()});
-  document.addEventListener("mousedown",()=>{if(!splashFinished) finishSplash()});
+  function startSplash() {
+    setTimeout(()=>{finishSplash()}, 1800);
+    document.addEventListener("keydown",()=>{if(!splashFinished) finishSplash()},{once:true});
+    document.addEventListener("mousedown",()=>{if(!splashFinished) finishSplash()},{once:true});
+  }
   function finishSplash() {
     splashFinished = true;
     document.getElementById("retro-splash").style.opacity="0";
@@ -193,7 +345,17 @@
       document.getElementById("terminal-outer").style.display="flex";
       focusTerminal();
       showMenu();
+      setInterval(updateClock, 1000); updateClock();
     },700);
+  }
+
+  // --------- RELOJ BARRA SUPERIOR -----------
+  function updateClock() {
+    const now = new Date();
+    const h = now.getHours().toString().padStart(2,'0');
+    const m = now.getMinutes().toString().padStart(2,'0');
+    const s = now.getSeconds().toString().padStart(2,'0');
+    document.getElementById("bar-clock").textContent = `${h}:${m}:${s}`;
   }
 
   // --------- ESTADO Y DATOS -------------
@@ -282,6 +444,14 @@
     ],
     informes: [
       {titulo: "Informe General", url: "https://example.com/informe-general"}
+    ],
+    inteligencia: [
+      {titulo: "Informe Satelital", url: "https://example.com/intel-sat"},
+      {titulo: "Análisis de Señales", url: "https://example.com/intel-sig"}
+    ],
+    comunicaciones: [
+      {titulo: "Manual de Radio", url: "https://example.com/com-radio"},
+      {titulo: "Protocolo de Encriptación", url: "https://example.com/com-encript"}
     ]
   };
 
@@ -319,6 +489,9 @@
 
 Seleccione una opción con el número correspondiente.`;
     typeWriter(txt, applyConfig);
+    // Cambia nombre de usuario en barra superior
+    let title = document.getElementById('terminal-title');
+    if (title && fakeUser) title.textContent = fakeUser+"@jake-corps:~$";
   }
   function showInfo() {
     state = "info"; clearIframe();
@@ -342,6 +515,8 @@ Acceso restringido. Para soporte, contactar al administrador.
 [2] Operaciones
 [3] Entrenamientos
 [4] Informes
+[5] Inteligencia
+[6] Comunicaciones
 [0] Volver
 
 Seleccione una categoría.`;
@@ -359,16 +534,38 @@ Seleccione una categoría.`;
     txt += "[0] Volver";
     typeWriter(txt, applyConfig);
   }
+  function simulateProcess(message, cb) {
+    // Barra de progreso animada
+    let output = document.getElementById("output");
+    output.innerHTML = `<span class='highlight'>${message}</span>
+      <div class="progress-bar-wrap">
+        <div class="progress-bar"><div class="progress-fill" id="pfill"></div>
+        <span class="progress-label" id="plabel">0%</span></div>
+      </div>`;
+    document.getElementById("cursor").style.display = "none";
+    let pct = 0;
+    function progress() {
+      pct += (Math.random()*19)+6;
+      if (pct > 100) pct = 100;
+      document.getElementById("pfill").style.width = pct+"%";
+      document.getElementById("plabel").textContent = Math.floor(pct)+"%";
+      if (pct < 100) setTimeout(progress, 130+Math.random()*100);
+      else setTimeout(()=>cb && cb(), 370);
+    }
+    progress();
+  }
   function showDocIframe(idx) {
     let dlist = docs[docsState] || [];
     let doc = dlist[idx];
     if (!doc) return;
-    document.getElementById("output").innerHTML = `<span class='highlight'>Documento seleccionado:</span> ${doc.titulo}`;
-    document.getElementById("cursor").style.display = "none";
-    document.getElementById("iframe-container").innerHTML =
-      `<iframe src="${doc.url}" allowfullscreen></iframe>
-      <div style="margin-top:16px;"><span class="conf-btn" onclick="showDocsCat('${docsState}')">← Volver</span></div>`;
-    applyConfig();
+    simulateProcess("Procesando solicitud...", ()=>{
+      document.getElementById("output").innerHTML = `<span class='highlight'>Documento seleccionado:</span> ${doc.titulo}`;
+      document.getElementById("cursor").style.display = "none";
+      document.getElementById("iframe-container").innerHTML =
+        `<iframe src="${doc.url}" allowfullscreen></iframe>
+        <div style="margin-top:16px;"><span class="conf-btn" onclick="showDocsCat('${docsState}')">← Volver</span></div>`;
+      applyConfig();
+    });
   }
   function clearIframe() {
     document.getElementById("iframe-container").innerHTML = "";
@@ -438,6 +635,7 @@ Seleccione una categoría.`;
 
   // ----------- MANEJO DE TECLADO PRINCIPAL -----------
   document.addEventListener("keydown", function(event) {
+    if (document.getElementById('retro-login').style.display !== "none") return;
     if (!splashFinished) return;
     if (typing) return;
     const key = event.key;
@@ -453,6 +651,8 @@ Seleccione una categoría.`;
       else if (key === "2") showDocsCat("operaciones");
       else if (key === "3") showDocsCat("entrenamientos");
       else if (key === "4") showDocsCat("informes");
+      else if (key === "5") showDocsCat("inteligencia");
+      else if (key === "6") showDocsCat("comunicaciones");
       else if (key === "0") showMenu();
     } else if (state === "docs-cat" && finishedTyping) {
       if (key === "0") showDocsMenu();
@@ -492,10 +692,45 @@ Seleccione una categoría.`;
     }
   });
 
+  // --------- SALIR -----------
+  function showExit() {
+    state = "exit";
+    clearIframe();
+    let txt =
+`SALIR DEL SISTEMA
+─────────────────────────────
+¿Seguro que desea cerrar sesión?
+
+[ENTER] Volver al inicio`;
+    typeWriter(txt, applyConfig);
+  }
+
+  // -------- EASTER EGG: Secuencia de teclas --------
+  // Ejemplo: U P D O W N (teclas ↑ ↓ ↑ ↓ ← → ← → b a)
+  let eggSeq = ['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a'];
+  let eggIdx = 0;
+  document.addEventListener("keydown", function(ev){
+    if(document.getElementById('retro-login').style.display !== "none") return;
+    if(ev.key === eggSeq[eggIdx]) {
+      eggIdx++;
+      if(eggIdx === eggSeq.length){
+        eggIdx = 0;
+        showEggPopup();
+      }
+    } else {
+      eggIdx = 0;
+    }
+  });
+  function showEggPopup() {
+    let pop = document.getElementById("easter-egg-popup");
+    pop.style.display = "block";
+    setTimeout(()=>{pop.style.display="none";}, 3200);
+  }
+
   // --------- INICIALIZACIÓN ---------
   window.onload = function() {
     applyConfig();
-    // showMenu(); // splash se encarga
+    // no showMenu(); login se encarga
   }
 </script>
 </body>
