@@ -2,80 +2,140 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Servidor Militar Simulado</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <style>
-    body {
-      background-color: black;
-      color: #00ff00;
-      font-family: "Courier New", monospace;
-      padding: 20px;
+    body { background: black; color: #00ff00; font-family: "Courier New", monospace; }
+    .terminal { border: 1px solid #00ff00; padding: 15px; width: 95vw; max-width: 800px; margin: auto; box-shadow: 0 0 15px #00ff00; min-height: 500px; }
+    .blink { animation: blink 1s infinite; }
+    @keyframes blink { 0%,100%{opacity:1;} 50%{opacity:0;} }
+    iframe { width: 100%; height: 60vh; border: 1px solid #00ff00; margin-top: 20px; background: #111; }
+    .mobile-buttons { margin-top: 20px; display: flex; flex-direction: column; gap: 10px; }
+    .mobile-buttons button {
+      background: #000; color: #0f0; border: 1px solid #0f0;
+      padding: 14px; font-size: 1.2em; font-family: inherit;
+      border-radius: 8px; cursor: pointer; transition: 0.2s;
     }
-    .terminal {
-      border: 1px solid #00ff00;
-      padding: 15px;
-      width: 800px;
-      margin: auto;
-      box-shadow: 0 0 15px #00ff00;
-    }
-    .blink {
-      animation: blink 1s infinite;
-    }
-    a {
-      color: #00ff00;
-      text-decoration: none;
-    }
-    a:hover {
-      text-decoration: underline;
-    }
-    @keyframes blink {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0; }
+    .mobile-buttons button:active { background: #003300; color: #fff; }
+    button.back { width: 100%; max-width: 250px; margin: 24px auto 0 auto; display: block; }
+    @media (max-width: 700px) {
+      .terminal { min-height: 350px; padding: 5vw; }
+      iframe { height: 50vh; }
     }
   </style>
 </head>
 <body>
   <div class="terminal" id="terminal">
     <p id="output"></p>
-    <span class="blink">█</span>
+    <span class="blink" id="cursor">█</span>
+    <div id="mobile-buttons" class="mobile-buttons" style="display:none"></div>
+    <div id="iframe-container"></div>
   </div>
   <script>
-    const text = `ACCESO AUTORIZADO...
+    function isMobile() {
+      return (/android|iphone|ipad|ipod|opera mini|iemobile|blackberry|webos/i).test(navigator.userAgent);
+    }
+
+    const menuText = `ACCESO AUTORIZADO...
 Cargando archivos clasificados...
 Seleccione un documento:
 
   [1] Operación Lamento Gris
   [2] Entrenamiento Básico
   [3] CQB Avanzado
-  [4] Operación Fénix
+  [4] Operación Bosnia
+  [5] Documento PDF
 
 Presione el número correspondiente para acceder al documento.`;
 
-    let i = 0;
+    const docs = {
+      "1": "https://drive.google.com/file/d/1Cb32m7Xj6wDAb-7ieSftT8gYFy3MCCZ9/preview", // Operación Lamento Gris (PDF)
+      "2": "https://docs.google.com/document/d/1-fL3KTjELkZ8MVV1b7tek1fKujRVXGMBmHqIY1vPDek/preview", // Entrenamiento Básico
+      "3": "https://docs.google.com/document/d/11hfdHwqIu8Z4aEE3Fn9xvRvM4Clwo0JZd8V11Hm-dD0/preview", // CQB Avanzado
+      "4": "https://drive.google.com/file/d/1Cb32m7Xj6wDAb-7ieSftT8gYFy3MCCZ9/preview", // Operación Bosnia (PDF)
+      "5": "https://drive.google.com/file/d/1Cb32m7Xj6wDAb-7ieSftT8gYFy3MCCZ9/preview" // Documento PDF (mismo PDF, puedes cambiarlo si tienes otro)
+    };
+
+    const docTitles = {
+      "1": "Operación Lamento Gris",
+      "2": "Entrenamiento Básico",
+      "3": "CQB Avanzado",
+      "4": "Operación Bosnia",
+      "5": "Documento PDF"
+    };
+
+    let i = 0, writing = false, finishedTyping = false;
+
     function typeWriter() {
-      if (i < text.length) {
-        let char = text.charAt(i);
+      writing = true;
+      finishedTyping = false;
+      const output = document.getElementById("output");
+      if (i < menuText.length) {
+        let char = menuText.charAt(i);
         if (char === '\n') {
-          document.getElementById("output").innerHTML += '<br>';
+          output.innerHTML += '<br>';
         } else {
-          document.getElementById("output").innerHTML += char;
+          output.innerHTML += char;
         }
         i++;
-        setTimeout(typeWriter, 40); // velocidad
+        setTimeout(typeWriter, 32);
+      } else {
+        writing = false;
+        finishedTyping = true;
+        document.getElementById("cursor").style.display = "inline";
+        if (isMobile()) showMobileButtons();
       }
     }
-    window.onload = typeWriter;
-    // Capturar teclado
-    document.addEventListener("keydown", function(event) {
-      if (event.key === "1") {
-        window.location.href = "https://docs.google.com/document/d/1fKp3nqvU7rFzK2P8XnB3Lq2eA4xJtP9Y0SvKJz6XdlxA/edit?usp=drivesdk";
-      } else if (event.key === "2") {
-        window.location.href = "https://docs.google.com/document/d/1-fL3KTjELkZ8MVV1b7tek1fKujRVXGMBmHqIY1vPDek/edit?usp=drivesdk";
-      } else if (event.key === "3") {
-        window.location.href = "https://docs.google.com/document/d/1eC8mvKQ7N_8wzFZFaWn3B3E5KJc6b8_4nR2gjK2EwJY/edit?usp=drivesdk";
-      } else if (event.key === "4") {
-        window.location.href = "https://docs.google.com/document/d/10T2Y3j3t8ucIaeMDo5SBBRfubIyxEGjZo6mCfk1uPlM/edit?usp=drivesdk";
+
+    function showMobileButtons() {
+      const container = document.getElementById("mobile-buttons");
+      container.innerHTML = "";
+      Object.keys(docs).forEach(num => {
+        const btn = document.createElement("button");
+        btn.textContent = docTitles[num];
+        btn.onclick = () => showDoc(num);
+        container.appendChild(btn);
+      });
+      container.style.display = "flex";
+    }
+
+    function hideMobileButtons() {
+      document.getElementById("mobile-buttons").style.display = "none";
+    }
+
+    function showMenu() {
+      i = 0;
+      writing = false;
+      finishedTyping = false;
+      document.getElementById("output").innerHTML = "";
+      document.getElementById("iframe-container").innerHTML = "";
+      document.getElementById("cursor").style.display = "none";
+      hideMobileButtons();
+      setTimeout(() => {
+        typeWriter();
+      }, 120);
+    }
+
+    function showDoc(num) {
+      if (!finishedTyping) return;
+      hideMobileButtons();
+      document.getElementById("output").innerHTML = `<b>Documento seleccionado:</b> ${docTitles[num]}`;
+      document.getElementById("cursor").style.display = "none";
+      if (docs[num]) {
+        document.getElementById("iframe-container").innerHTML =
+          `<iframe src="${docs[num]}" allowfullscreen></iframe>
+          <button class="back" onclick="showMenu()">← Volver al menú</button>`;
+      } else {
+        document.getElementById("iframe-container").innerHTML =
+          `<p>Documento no encontrado.</p>
+          <button class="back" onclick="showMenu()">← Volver al menú</button>`;
       }
+    }
+
+    window.onload = showMenu;
+    document.addEventListener("keydown", function(event) {
+      if (!isMobile() && finishedTyping && docs[event.key]) showDoc(event.key);
+      if (!isMobile() && finishedTyping && event.key === "Escape") showMenu();
     });
   </script>
 </body>
