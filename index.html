@@ -1,3 +1,233 @@
+Jozzu
+asisawa
+No molestar
+
+Jozzu
+[︾CLS]
+ — ayer a las 17:44
+Es algo aún muy simple
+Tengo pensado que pueda cargar y crear documentos hay mismo
+/J.A/
+[︾CLS]
+ — ayer a las 17:45
+Incluso mejor
+Jozzu
+[︾CLS]
+ — ayer a las 17:45
+Ajá
+Bueno pero funcionan los números ?
+/J.A/
+[︾CLS]
+ — ayer a las 17:45
+Perfectamente
+Jozzu
+[︾CLS]
+ — ayer a las 17:48
+Ok
+Yo luego lo pruebo en mi pc
+Y talvez transcriba un documento para hacer la prueba
+Jozzu
+[︾CLS]
+ — ayer a las 18:06
+Acabo de acabar el código nuevo solo tengo que hacer unas pruebas
+/J.A/
+[︾CLS]
+ — ayer a las 18:10
+Ok
+Jozzu
+[︾CLS]
+ — ayer a las 18:16
+Ya lo acabé solo que el texto de carga ya no aparece
+Hay te mando el link
+Para que revises si funciona todo bien
+https://joosu-star.github.io/Base-/
+Jozzu
+[︾CLS]
+ — ayer a las 18:25
+Si puedes entra al canal de voz y mostrarme como se ve
+/J.A/
+[︾CLS]
+ — ayer a las 18:26
+Justo ahora debo terminar los preparativos del despliegue
+Luego podre
+Jozzu
+[︾CLS]
+ — ayer a las 18:26
+Ok
+Jozzu
+[︾CLS]
+ — ayer a las 19:30
+J.a tuve que sobornar a mi hermana para que se quede la boca callada
+Y no les cuente a mis padres que prendí el pc
+Tuve que sacar el cable de una laptop
+Y lo logre
+Funciona la pc
+Con el disco duro cortupyo pero se logró
+Que mi papá lo movió y lo corrompió
+En nada entro
+J.a dice bodoque que si le pueden hacer entrenamiento
+Para ir al despliegue
+Jozzu
+[︾CLS]
+ — ayer a las 20:00
+J.a me fui mis papás están muy cerca de la casa
+Y en cualquier momento llegaban
+Y tenía que esconder las pruebas
+Jozzu
+[︾CLS]
+ — ayer a las 22:06
+J.a
+No me la vas a creer
+Ya acabé todo con 1 café y mucho estrés por hacerlo en el celular
+La página está completa
+:goose~1:
+https://joosu-star.github.io/P-gina-web-/
+Lo adapte para celular
+Y todo los cambios también los hase en la página
+Jozzu
+[︾CLS]
+ — ayer a las 22:14
+Haora viene meterle más cosas y documentos lo que se te cante j.a
+Si quieres metele un documento con monitas chinas
+Jozzu
+[︾CLS]
+ — ayer a las 22:53
+J.a sinplemente cocine
+https://joosu-star.github.io/Datos-militares/
+Desde anoche asiendo esto XD
+:emoji_9~2:
+Jozzu
+[︾CLS]
+ — ayer a las 23:15
+https://joosu-star.github.io/Datos-militares/
+Contraseña:30191531
+Jozzu
+[︾CLS]
+ — 0:26
+¿Que contiene la web?
+(Esto viéndolo en el punto de vista de que si quieren que les haga uno)
+
+Acceso a documéntenos dividido por categorías 
+
+-entrenamientos
+-informes
+-despligues
+-operaciones 
+-ect
+
+Un ambiente retro  y un entorno seguro protegido por contraseña única para evitar que personas sin autorización entren a la página
+(No soy muy bueno programando te lo digo de una :emoji_59:  pero me mantengo bien)
+Jozzu
+[︾CLS]
+ — 15:49
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>JAKE.CORPS :: Sistema Militar</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    html,body {
+      height: 100%; width: 100vw; margin: 0; padding: 0;
+      background: #010;
+      font-family: "Courier New", Courier, monospace;
+      overflow: hidden;
+    }
+    body {
+      color: #00ff00;
+      min-height: 100vh;
+      box-sizing: border-box;
+      position: relative;
+      text-shadow: 0 0 8px #00ff00, 0 0 20px #007700;
+      font-size: 1em;
+      letter-spacing: 0.01em;
+      background: #000 url('https://www.transparenttextures.com/patterns/noise.png') repeat;
+    }
+    #scanlines {
+      pointer-events: none;
+      z-index: 99999;
+      position: fixed;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      opacity: 0.13;
+      background: repeating-linear-gradient(
+        to bottom,
+        #0f0 0px, #0f0 1.2px,
+        transparent 1.2px, transparent 4px
+      );
+      mix-blend-mode: lighten;
+      animation: scan-move 2.8s linear infinite;
+    }
+    @keyframes scan-move {
+      0% { background-position-y: 0; }
+      100% { background-position-y: 4px; }
+    }
+    #retro-login {
+      position: fixed; z-index: 10000;
+      top:0; left:0; width:100vw; height:100vh;
+      background: #000 url('https://www.transparenttextures.com/patterns/noise.png') repeat;
+      display: flex; align-items: center; justify-content: center;
+      flex-direction: column;
+      transition: opacity 0.6s;
+    }
+    .login-title {
+      font-size: 5vw;
+      text-align: center;
+      color: #00ff00;
+      text-shadow: 0 0 40px #00ff00,0 0 10px #0f0;
+      letter-spacing: 0.18em;
+      font-weight: bold;
+      user-select:none;
+    }
+    .login-form {
+      margin-top: 2vw;
+      background: rgba(0,32,0,0.17);
+      border: 2px solid #0f0;
+      border-radius: 12px;
+      padding: 2.2em 2.5em;
+      box-shadow: 0 0 22px #0f0a;
+      display: flex; flex-direction: column; align-items: center;
+    }
+    .login-label {
+      color:#0f0;font-size:1.1em;margin-bottom:0.7em; letter-spacing: 0.04em;
+    }
+    .login-input {
+      background: #010; border: 1.5px solid #0f0; color: #0f0; font-size: 1.15em;
+      border-radius: 4px;
+      padding: 0.3em 0.8em; margin-bottom: 1.1em;
+      outline: none;
+      font-family: inherit;
+      transition: border-color 0.2s;
+    }
+    .login-input:focus {
+      border-color: #00ff00;
+    }
+    .login-btn {
+      background: none; color: #0f0; border: 1.5px solid #0f0;
+      padding: 0.4em 2em; border-radius: 5px; font-size: 1.06em;
+      cursor: pointer; transition: background 0.22s, color 0.22s;
+    }
+    .login-btn:hover { background: #0f0; color: #000;}
+    .login-tip {
+      color: #0f0; opacity: .65; font-size: 0.95em; margin-top: 1em;
+      text-align: center;
+    }
+    #retro-splash {
+      position: fixed; z-index: 9999;
+      top:0; left:0; width:100vw; height:100vh;
+      background: #000 url('https://www.transparenttextures.com/patterns/noise.png') repeat;
+      display: flex; align-items: center; justify-content: center;
+      flex-direction: column;
+      transition: opacity 0.7s;
+    }
+    .splash-title {
+... (637 líneas restantes)
+Contraer
+index (1).html
+29 KB
+﻿
+/J.A/
+1_joss_1
+[︾CLS]
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -735,3 +965,5 @@ Seleccione una categoría.`;
 </script>
 </body>
 </html>
+index (1).html
+29 KB
